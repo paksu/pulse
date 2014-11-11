@@ -1,5 +1,6 @@
 body {
     font-family: 'Rock Salt', cursive;
+    color: #fff;
 }
 .header {
     position: absolute;
@@ -9,11 +10,7 @@ body {
     right: 0;
     padding: 5px;
 }
-.countries {
-    font-family: 'Rock Salt', cursive;
+.beacons {
     position: absolute;
     top:50px;
-    list-style: none;
-    font-size: 2em;
-    opacity:0.8;
 }
