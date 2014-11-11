@@ -1,8 +1,6 @@
 'use strict';
 
 angular.module('pulseApp', [
-  'ngCookies',
-  'ngResource',
   'ngSanitize',
   'ui.bootstrap',
   'btford.socket-io',
