@@ -18,7 +18,7 @@ angular.module('pulseApp')
      * Syncs removed items on 'model:remove'
      */
     socket.on('msg', function (item) {
-      TwtrGlobe.onTweet({ sentiment: { score: 221 }, coordinates: { coordinates: item} });
+      TwtrGlobe.onTweet({ sentiment: { score: 221 }, coordinates: { coordinates: item[1]} });
     });
     return {
       socket: socket
