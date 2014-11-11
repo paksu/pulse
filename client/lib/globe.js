@@ -189,6 +189,7 @@ var target = {
     // remove beacon from scene when it expires itself
     beacon.onHide(function () {
       beaconHolder.remove(beacon);
+      delete beacon;
     });
   }
 
