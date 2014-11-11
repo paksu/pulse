@@ -1,3 +1,4 @@
+// global variable ugliness :<
 window.renderer, window.target;
 // couple of constants
 var POS_X = 1800;                   // Initial camera pos x
@@ -25,7 +26,7 @@ var target = {
   zoom: 2500
 };
 
-
+// Mostly from twitter-stream-globe
 (function () {
 
   var TwtrGlobe = this.TwtrGlobe = { };

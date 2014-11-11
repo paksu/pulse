@@ -2,6 +2,8 @@
  * TweetBeacon extends THREE.Object3D
  * A Three.js object that constructs and animates itself
  */
+
+// From twitter-stream-globe
 var colors = [0xF05F99, 0xFF8A70, 0x9DFF70, 0xBDFFFF, 0xFFCD70];
 TweetBeacon = function(tweet) {
 
