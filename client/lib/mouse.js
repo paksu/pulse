@@ -48,8 +48,8 @@
 
   renderer.domElement.addEventListener('mousewheel', function (event) {
     target.zoom -= event.wheelDeltaY ;
-    if (target.zoom > 3000) target.zoom = 3000;
-    if (target.zoom < 100) target.zoom = 100;
+    if (target.zoom > 10000) target.zoom = 10000;
+    if (target.zoom < 1000) target.zoom = 1000;
     event.preventDefault();
     return false;
   });
