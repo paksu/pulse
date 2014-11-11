@@ -49,7 +49,7 @@
   renderer.domElement.addEventListener('mousewheel', function (event) {
     target.zoom -= event.wheelDeltaY ;
     if (target.zoom > 3000) target.zoom = 3000;
-    if (target.zoom < 1300) target.zoom = 1300;
+    if (target.zoom < 100) target.zoom = 100;
     event.preventDefault();
     return false;
   });

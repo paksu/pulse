@@ -58,6 +58,7 @@ var target = {
     scene = new THREE.Scene();
     scene.add(camera);
 
+    addSkybox();
     addEarth();
     addStats();
     animate();
@@ -67,6 +68,33 @@ var target = {
 
   var earthMesh, beaconHolder;
 
+  function addSkybox() {
+    // Create the background cube map
+    var urls = [
+      'assets/images/pos-x.png',
+      'assets/images/neg-x.png',
+      'assets/images/pos-y.png',
+      'assets/images/neg-y.png',
+      'assets/images/pos-z.png',
+      'assets/images/neg-z.png'
+    ];
+
+    var cubemap = THREE.ImageUtils.loadTextureCube(urls);
+    cubemap.format = THREE.RGBFormat;
+
+    var shader = THREE.ShaderLib["cube"];
+    shader.uniforms["tCube"].value = cubemap;
+
+    var material = new THREE.ShaderMaterial({
+      fragmentShader: shader.fragmentShader,
+      vertexShader: shader.vertexShader,
+      uniforms: shader.uniforms,
+      depthWrite: false,
+      side: THREE.BackSide
+    });
+    var skybox = new THREE.Mesh(new THREE.CubeGeometry(100000, 100000, 100000), material);
+    scene.add(skybox);
+  }
   /**
    *  Creates the Earth sphere
    */
