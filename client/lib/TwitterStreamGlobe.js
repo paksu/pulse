@@ -195,12 +195,12 @@ var target = {
   // Move the globe automatically if idle
   function checkIdle() {
     if (IDLE === true) {
-      target.y -= 0.001;
+      target.x -= 0.001;
 
-      if (target.x > 0) target.x -= 0.001;
-      if (target.x < 0) target.x += 0.001;
+      if (target.y > 0) target.y -= 0.001;
+      if (target.y < 0) target.y += 0.001;
 
-      if (Math.abs(target.x) < 0.01) target.x = 0;
+      if (Math.abs(target.y) < 0.01) target.y = 0;
     }
   };
 
@@ -217,17 +217,24 @@ var target = {
   /**
    * Runs on each animation frame
    */
+  // Main render loop
+  var rotation = { x: 0, y: 0 };
   function render () {
 
-
-    earthMesh.rotation.x += (target.x - earthMesh.rotation.x) * 0.1;
-    earthMesh.rotation.y += (target.y - earthMesh.rotation.y) * 0.1;
-    DISTANCE += (target.zoom - DISTANCE) * 0.3;
-    camera.position.z = DISTANCE;
-    camera.lookAt( scene.position );
+    rotation.x += (target.x - rotation.x) * 0.1;
+    rotation.y += (target.y - rotation.y) * 0.1;
 
     checkIdle();
 
+    // Convert our 2d camera target into 3d world coords
+    camera.position.x = DISTANCE * Math.sin(rotation.x) * Math.cos(rotation.y);
+    camera.position.y = DISTANCE * Math.sin(rotation.y);
+    camera.position.z = DISTANCE * Math.cos(rotation.x) * Math.cos(rotation.y);
+    DISTANCE += (target.zoom - DISTANCE) * 0.3;
+    camera.lookAt( scene.position );
+
+    renderer.autoClear = false;
+    renderer.clear();
     renderer.render( scene, camera );
   }
 
