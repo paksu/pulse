@@ -158,8 +158,6 @@ var target = {
     beacon.position.z = position.z;
     beacon.lookAt(earthMesh.position);
     beaconHolder.add(beacon);
-    console.log(beacon)
-
     // remove beacon from scene when it expires itself
     beacon.onHide(function () {
       beaconHolder.remove(beacon);

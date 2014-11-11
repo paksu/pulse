@@ -2,6 +2,7 @@
  * TweetBeacon extends THREE.Object3D
  * A Three.js object that constructs and animates itself
  */
+var colors = [0xF05F99, 0xFF8A70, 0x9DFF70, 0xBDFFFF, 0xFFCD70];
 TweetBeacon = function(tweet) {
 
   this.tweet = tweet;
@@ -15,15 +16,8 @@ TweetBeacon = function(tweet) {
   this.add(this.container);
 
   // Set base color depending on sentiment score
-  this.color = 0xFFFFFF;
 
-  if (tweet.sentiment.score < 0) {
-    this.color = 0xFF0000;
-  }
-  else if (tweet.sentiment.score > 0) {
-    this.color = 0xDDDD00;
-  }
-
+  this.color = colors[Math.floor(Math.random()*colors.length)];;//0xFFFFFF;
   this.addBeam();
   this.addShockwave();
 };

@@ -5,7 +5,7 @@
 'use strict';
 
 var config = require('./environment');
-
+var test_locations = require('./data').data;
 // When the user disconnects.. perform this
 function onDisconnect(socket) {
 }
@@ -16,10 +16,10 @@ function onConnect(socket) {
   socket.on('info', function (data) {
     console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
   });
-
   setInterval(function() {
-    socket.emit('msg', "asdf")
-  }, 1000);
+    var item = test_locations[Math.floor(Math.random()*test_locations.length)];
+    socket.emit('msg', item )
+  }, 50);
   // Insert sockets below
   //require('../api/thing/thing.socket').register(socket);
 }
