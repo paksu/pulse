@@ -16,8 +16,8 @@
     "jade": "~1.2.0",
     "composable-middleware": "^0.3.0",
     "connect-mongo": "^0.4.1",
-    "socket.io": "~0.9.16",
-    "socketio-jwt": "^2.0.2"
+    "socket.io": "^1.0.6",
+    "socket.io-client": "^1.0.6"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

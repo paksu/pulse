@@ -5,6 +5,7 @@ angular.module('pulseApp', [
   'ngResource',
   'ngSanitize',
   'ui.bootstrap',
+  'btford.socket-io',
   'ui.router'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {

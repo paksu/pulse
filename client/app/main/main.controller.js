@@ -1,11 +1,7 @@
 'use strict';
 
 angular.module('pulseApp')
-  .controller('MainCtrl', function ($scope, $http) {
-    $scope.awesomeThings = [];
-
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-    });
-
+  .controller('MainCtrl', function ($scope, $http, socket) {
+    console.log(socket);
+    window.debug =socket;
   });
