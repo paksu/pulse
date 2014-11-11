@@ -1,18 +1,37 @@
+window.renderer, window.target;
+// couple of constants
+var POS_X = 1800;                   // Initial camera pos x
+var POS_Y = 500;                    // Cam pos y
+var POS_Z = 1800;                   // Cam pos z
+var DISTANCE = 5000;               // Camera distance from globe
+var WIDTH = window.innerWidth;      // Canvas width
+var HEIGHT = window.innerHeight;    // Canvas height
+var PI_HALF = Math.PI / 2;          // Minor perf calculation
+var IDLE = true;                    // If user is using mouse to control
+var IDLE_TIME = 1000 * 3;           // Time before idle becomes true again
+
+var FOV = 45;                       // Camera field of view
+var NEAR = 1;                       // Camera near
+var FAR = 150000;                   // Draw distance
+
+// Use the visibility API to avoid creating a ton of data when the user is not looking
+var VISIBLE = true;
+
+var DEBUG = false; // Show stats or not
+
+var target = {
+  x: 0,
+  y: 0,
+  zoom: 2500
+};
+
+
 (function () {
 
-  var TwtrGlobe = this.TwtrGlobe = { },
+  var TwtrGlobe = this.TwtrGlobe = { };
 
-  // Constants
-  POS_X = 0,
-  POS_Y = 800,
-  POS_Z = 2000,
-  FOV = 45,
-  NEAR = 1,
-  FAR = 150000,
-  PI_HALF = Math.PI / 2;
 
   var renderer, camera, scene, pubnub, innerWidth, innerHeight;
-
   /**
    *  Initiates WebGL view with Three.js
    */
@@ -29,7 +48,7 @@
     renderer = new THREE.WebGLRenderer({ antialiasing: true });
     renderer.setSize(innerWidth, innerHeight);
     renderer.setClearColor(0x00000000, 0.0);
-
+    window.renderer = renderer;
     document.getElementById('globe-holder').appendChild(renderer.domElement);
 
     camera = new THREE.PerspectiveCamera(FOV, innerWidth / innerHeight, NEAR, FAR);
@@ -123,9 +142,7 @@
       lat: tweet.coordinates.coordinates[1],
       lon: tweet.coordinates.coordinates[0]
     };
-    console.log(latlong)
     var position = latLonToVector3(latlong.lat, latlong.lon);
-    console.log(position)
     addBeacon(position, tweet);
   }
 
@@ -149,6 +166,18 @@
     });
   }
 
+  // Move the globe automatically if idle
+  function checkIdle() {
+    if (IDLE === true) {
+      target.y -= 0.001;
+
+      if (target.x > 0) target.x -= 0.001;
+      if (target.x < 0) target.x += 0.001;
+
+      if (Math.abs(target.x) < 0.01) target.x = 0;
+    }
+  };
+
   /**
    * Render loop
    */
@@ -164,10 +193,15 @@
    */
   function render () {
 
-    earthMesh.rotation.y = earthMesh.rotation.y + 0.001;
 
-    renderer.autoClear = false;
-    renderer.clear();
+    earthMesh.rotation.x += (target.x - earthMesh.rotation.x) * 0.1;
+    earthMesh.rotation.y += (target.y - earthMesh.rotation.y) * 0.1;
+    DISTANCE += (target.zoom - DISTANCE) * 0.3;
+    camera.position.z = DISTANCE;
+    camera.lookAt( scene.position );
+
+    checkIdle();
+
     renderer.render( scene, camera );
   }
 
