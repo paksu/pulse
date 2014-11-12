@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('pulseApp')
-  .factory('socket', function(socketFactory) {
+  .factory('socket', function(socketFactory, $rootScope) {
 
     // socket.io now auto-configures its connection when we ommit a connection url
     var ioSocket = io('', {
@@ -18,7 +18,7 @@ angular.module('pulseApp')
      * Syncs removed items on 'model:remove'
      */
     socket.on('msg', function (item) {
-      TwtrGlobe.onTweet({ sentiment: { score: 221 }, coordinates: { coordinates: item[1]} });
+      $rootScope.$broadcast('addBeacon', item);
     });
     return {
       socket: socket

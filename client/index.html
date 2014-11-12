@@ -23,13 +23,13 @@
     <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <div id="globe-holder"></div>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
     <div ng-app="pulseApp">
+    <div id="globe-holder" pulse-globe></div>
     <div ui-view="">
     </div>
     </div>
@@ -56,16 +56,15 @@
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
-      <script src="lib/shaders.js"></script>
+
       <script src="lib/beacon.js"></script>
-      <script src="lib/globe.js"></script>
-      <script src="lib/mouse.js"></script>
     <!-- endbuild -->
 
       <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
           <script src="app/main/main.controller.js"></script>
+          <script src="app/main/main.directives.js"></script>
           <script src="app/main/main.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <script src="components/socket/socket.service.js"></script>
