@@ -17,8 +17,8 @@ angular.module('pulseApp')
     /**
      * Syncs removed items on 'model:remove'
      */
-    socket.on('msg', function (item) {
-      $rootScope.$broadcast('addBeacon', item);
+    socket.on('beam', function (beam) {
+      $rootScope.$broadcast('addBeacon', beam);
     });
     return {
       socket: socket

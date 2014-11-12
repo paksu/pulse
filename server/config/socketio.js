@@ -6,6 +6,7 @@
 
 var config = require('./environment');
 var test_locations = require('./data').data;
+var len = test_locations.length
 // When the user disconnects.. perform this
 function onDisconnect(socket) {
 }
@@ -17,8 +18,8 @@ function onConnect(socket) {
     console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
   });
   setInterval(function() {
-    var item = test_locations[Math.floor(Math.random()*test_locations.length)];
-    socket.emit('msg', item )
+    var beam = test_locations[Math.floor(Math.random()*len)];
+    socket.emit('beam', beam )
   }, 50);
   // Insert sockets below
   //require('../api/thing/thing.socket').register(socket);

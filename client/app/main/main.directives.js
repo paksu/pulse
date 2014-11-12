@@ -116,7 +116,7 @@
       stats.domElement.style.right = '20px';
       stats.domElement.style.bottom = '100px';
 
-      document.body.appendChild( stats.domElement );
+      $window.document.body.appendChild( stats.domElement );
     }
 
     function onWindowResize (event) {
@@ -226,7 +226,9 @@
 
         $scope.animate = function() {
           requestAnimationFrame($scope.animate);
+          if (stats) stats.begin();
           $scope.render();
+          if (stats) stats.end();
         };
 
         $scope.render  = function() {
@@ -247,11 +249,11 @@
           renderer.render( scene, camera );
         };
 
-        $scope.$on('addBeacon', function(event, item) {
-          var lon = item[1][0];
-          var lat = item[1][1];
+        $scope.$on('addBeacon', function(event, beam) {
+          var lon = beam.geoip.location[0]
+          var lat = beam.geoip.location[1]
 
-          var beacon = new TweetBeacon({ sentiment: { score: 500 }});
+          var beacon = new TweetBeacon({ sentiment: { score: 1000 * beam.time }});
           var position = latLonToVector3(lat, lon);
           beacon.position.x = position.x;
           beacon.position.y = position.y;
